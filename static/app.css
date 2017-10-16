@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,900');
+
+
+body {
+    background: ##fafbfe;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    padding: 0 53px;
+}
+
+.Posts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.Posts-Item {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 9px 23px 0 rgba(35,35,85,0.08);
+    max-width: 360px;
+}
+
+.PhotoSegment img {
+    border-radius: 10px 10px 0 0;
+    height: auto;
+    width: 360px;
+}
+
+.DetailsSegment {
+    padding: 7px 24.5px 14px 24.5px;
+}
+
+.Post-Title {
+    color: #242d9b;
+    font-size: 1.75em;
+    font-weight: 900;
+}
+
+.Post-Date {
+    color: #242d9b;
+    font-size: 10px;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+}
