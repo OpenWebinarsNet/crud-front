@@ -1,0 +1,22 @@
+{
+  "name": "crud-front",
+  "version": "1.0.0",
+  "description": "Frontend for the CRUD App",
+  "main": "index.js",
+  "repository": {
+    "url": "git@github.com:OpenWebinarsNet/crud-front.git",
+    "type": "git"
+  },
+  "scripts": {
+    "start": "next start",
+    "dev": "next dev",
+    "build": "next build"    
+  },
+  "author": "Miguh Ruiz <m@miguhruiz.xyz> (https://miguhruiz.xyz/)",
+  "license": "MIT",
+  "dependencies": {
+    "next": "^4.1.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
