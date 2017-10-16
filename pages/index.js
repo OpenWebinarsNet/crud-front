@@ -1,9 +1,11 @@
 import React from 'react'
 
+import Posts from '../components/Posts'
+
 function FirstPage() {
     return(
         <div className="App">
-            <h1>Hello World</h1>
+            <Posts />
         </div>
     )
 }
