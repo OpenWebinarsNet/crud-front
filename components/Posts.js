@@ -11,6 +11,25 @@ class Posts extends React.Component {
             posts: []
         }
 
+        this.deletePost = this.deletePost.bind(this)
+
+    }
+    deletePost(ev) {
+        let el = ev.target
+        let id = el.dataset.id
+        let index = el.dataset.index
+
+        fetch(`https://owcrud-api.now.sh/api/posts/${id}`, {
+            method: 'DELETE'
+        })
+         .catch(err => console.error(err))
+         .then(res => res.json())
+         .then(del => {
+            console.log(del)
+            let posts = this.state.posts
+            posts.splice(index, 1)
+            this.setState({ posts })
+         })
     }
     componentDidMount() {
         fetch('https://owcrud-api.now.sh/api/posts')
@@ -25,14 +44,20 @@ class Posts extends React.Component {
                     <Header />
                     <div className="Posts">
                         {
-                            this.state.posts.map((post) => (
-                                <div className="Posts-Item">
+                            this.state.posts.map((post, index) => (
+                                <div className="Posts-Item" key={index}>
                                     <div className="PhotoSegment">
                                         <img src={post.image} alt={post.title}/>
                                     </div>
                                     <div className="DetailsSegment">
                                         <h2 className="Post-Title">{post.title}</h2>
                                         <h3 className="Post-Date">{moment(post.releaseDate).fromNow()}</h3>
+                                        <span
+                                            className="fa fa-trash"
+                                            onClick={this.deletePost}
+                                            data-id={post.id}
+                                            data-index={index}
+                                        />
                                     </div>
                                 </div>
                             ))
