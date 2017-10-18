@@ -2,13 +2,20 @@ import React from 'react'
 import moment from 'moment'
 
 import Header from './Header'
+import Form from './Form'
 
 class Post extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            item: {}
+            item: {},
+            showUpdate: false
         }
+
+        this.toggleUpdate = this.toggleUpdate.bind(this)
+    }
+    toggleUpdate() {
+        this.setState({ showUpdate: !this.state.showUpdate })
     }
     componentDidMount() {
         fetch(`https://owcrud-api.now.sh/api/posts/${this.props.id}`)
@@ -17,10 +24,14 @@ class Post extends React.Component {
             .then(item => this.setState({ item }))
     }
     render() {
+        let showForm = (this.state.showUpdate) ? (<div className="Update-Form">
+                                                        <Form type="update" />
+                                                    </div>) : null
         if(this.state.item._id) {
             return(
                 <div className="App">
                     <Header />
+                    {showForm}
                     <div className="Post">
                         <div className="Item">
                             <div className="Item-Detail">
@@ -28,7 +39,7 @@ class Post extends React.Component {
                                     <h1 className="Post-Title">{this.state.item.title}</h1>
                                     <span
                                         className="Post-Icon fa fa-pencil"
-                                        onClick={this.updatePost}
+                                        onClick={this.toggleUpdate}
                                         data-id={this.state.item._id}
                                     />
                                 </div>

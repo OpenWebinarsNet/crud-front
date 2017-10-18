@@ -139,3 +139,8 @@ body {
     margin: 2em auto;
     width: 400px;
 }
+
+.Update-Form {
+    background: #f0f1fb;
+    padding: 1em;
+}
