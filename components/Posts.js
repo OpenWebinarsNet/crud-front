@@ -23,9 +23,7 @@ class Posts extends React.Component {
             method: 'DELETE'
         })
          .catch(err => console.error(err))
-         .then(res => res.json())
-         .then(del => {
-            console.log(del)
+         .then(() => {
             let posts = this.state.posts
             posts.splice(index, 1)
             this.setState({ posts })
@@ -55,7 +53,7 @@ class Posts extends React.Component {
                                         <span
                                             className="fa fa-trash"
                                             onClick={this.deletePost}
-                                            data-id={post.id}
+                                            data-id={post._id}
                                             data-index={index}
                                         />
                                     </div>

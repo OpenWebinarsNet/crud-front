@@ -4,7 +4,9 @@ function Header() {
     return(
         <div className="Header">
             <div className="Col">
-                <img src="https://dc722jrlp2zu8.cloudfront.net/static/img/logos/logo-openwebinars-monocromo.svg" alt=""/>
+                <a href="/">
+                    <img src="https://dc722jrlp2zu8.cloudfront.net/static/img/logos/logo-openwebinars-monocromo.svg" alt=""/>
+                </a>
             </div>
             <div className="Col">
                 <h2 className="Header-Mini">CRUD</h2>
