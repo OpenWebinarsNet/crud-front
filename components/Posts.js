@@ -48,7 +48,9 @@ class Posts extends React.Component {
                                         <img src={post.image} alt={post.title}/>
                                     </div>
                                     <div className="DetailsSegment">
-                                        <h2 className="Post-Title">{post.title}</h2>
+                                        <a href={`/post/${post._id}`} className="Post-Link">
+                                            <h2 className="Post-Title">{post.title}</h2>
+                                        </a>
                                         <h3 className="Post-Date">{moment(post.releaseDate).fromNow()}</h3>
                                         <span
                                             className="fa fa-trash"

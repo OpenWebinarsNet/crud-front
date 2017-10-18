@@ -81,6 +81,7 @@ body {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 9px 23px 0 rgba(35,35,85,0.08);
+    margin: 1em;
     max-width: 360px;
 }
 
@@ -105,4 +106,8 @@ body {
     font-size: 10px;
     letter-spacing: .6px;
     text-transform: uppercase;
+}
+
+.Post-Link {
+    text-decoration: none;
 }
