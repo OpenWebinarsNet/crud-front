@@ -22,6 +22,28 @@ body {
     text-align: center;
 }
 
+.Form-Btn {
+    background: #f33784;
+    border: 0;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px 0 rgba(20,35,93,0.18);
+    color: #fff;
+    font-size: 1em;
+    font-weight: 900;
+    margin: 1em 0;
+    padding: 1em;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.FormInput {
+    margin-bottom: 1em;
+}
+
+.FormInput-Label {
+    margin-right: 1em;
+}
+
 .Header-Mini {
     color: #f33784;
     font-size: 1.75em;
@@ -110,4 +132,10 @@ body {
 
 .Post-Link {
     text-decoration: none;
+}
+
+.PostForm {
+    display: block;
+    margin: 2em auto;
+    width: 400px;
 }

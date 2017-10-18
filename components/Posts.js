@@ -42,7 +42,7 @@ class Posts extends React.Component {
                     <Header />
                     <div className="Posts">
                         {
-                            this.state.posts.map((post, index) => (
+                            this.state.posts.reverse().map((post, index) => (
                                 <div className="Posts-Item" key={index}>
                                     <div className="PhotoSegment">
                                         <img src={post.image} alt={post.title}/>

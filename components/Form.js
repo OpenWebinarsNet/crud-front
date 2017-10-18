@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 class PostForm extends React.Component {
     constructor(props) {
@@ -6,12 +7,28 @@ class PostForm extends React.Component {
         this.state = {
             form: {
                 title: '',
-                contents: '',
+                contents: [],
                 image: '',
                 releaseDate: '',
-                special: ''
+                special: false
             }
         }
+
+        this.sendForm = this.sendForm.bind(this)
+    }
+    sendForm(ev) {
+        ev.preventDefault()
+
+        fetch('https://owcrud-api.now.sh/api/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.form)
+        })
+            .catch(err => console.log(err))
+            .then(res => res.json())
+            .then(thing => console.log(thing))
     }
     render() {
         return(
@@ -22,7 +39,7 @@ class PostForm extends React.Component {
                         type="text"
                         className="FormInput-Input"
                         name="Title"
-                        onChange={(ev) => { this.setState({ form: { name: ev.target.value } }) }}
+                        onChange={(ev) => { this.setState({ form: { ...this.state.form, title: ev.target.value } }) }}
                     />
                 </div>
                 <div className="FormInput">
@@ -31,7 +48,7 @@ class PostForm extends React.Component {
                         type="text"
                         className="FormInput-Input"
                         name="Categories"
-                        onChange={(ev) => { this.setState({ form: { contents: ev.target.value } }) }}
+                        onChange={(ev) => { this.setState({ form: { ...this.state.form, contents: ev.target.value.split(',') } }) }}
                     />
                 </div>
                 <div className="FormInput">
@@ -40,7 +57,7 @@ class PostForm extends React.Component {
                         type="date"
                         className="FormInput-Input"
                         name="ReleaseDate"
-                        onChange={(ev) => { this.setState({ form: { releaseDate: ev.target.value } }) }} 
+                        onChange={(ev) => { this.setState({ form: { ...this.state.form, releaseDate: moment(ev.target.value).unix() } }) }} 
                     />
                 </div>
                 <div className="FormInput">
@@ -49,7 +66,7 @@ class PostForm extends React.Component {
                         type="text"
                         className="FormInput-Input"
                         name="ImageURL"
-                        onChange={(ev) => { this.setState({ form: {  image: ev.target.value } }) }}
+                        onChange={(ev) => { this.setState({ form: {  ...this.state.form, image: ev.target.value } }) }}
                     />
                 </div>
                 <div className="FormInput">
@@ -58,10 +75,14 @@ class PostForm extends React.Component {
                         type="checkbox"
                         className="FormInput-Input"
                         name="Special"
-                        onChange={(ev) => { this.setState({ form: { special: ev.target.value } }) }}
+                        onChange={(ev) => { let result = (ev.target.value == 'on') ? true : false
+                                            this.setState({ form: { ...this.state.form, special: result } }) }}
                     />
                 </div>
+                <button onClick={this.sendForm} className="Form-Btn">Publicar curso</button>
             </form>
         )
     }
 }
+
+export default PostForm
