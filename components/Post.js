@@ -24,10 +24,12 @@ class Post extends React.Component {
             .then(item => this.setState({ item }))
     }
     render() {
-        let showForm = (this.state.showUpdate) ? (<div className="Update-Form">
-                                                        <Form type="update" />
-                                                    </div>) : null
         if(this.state.item._id) {
+
+            let showForm = (this.state.showUpdate) ? (<div className="Update-Form">
+                                                        <Form type="update" item={this.state.item} />
+                                                    </div>) : null
+
             return(
                 <div className="App">
                     <Header />

@@ -30,6 +30,17 @@ class PostForm extends React.Component {
             .then(res => res.json())
             .then(thing => console.log(thing))
     }
+    componentDidMount() {
+        if(this.props.type == 'update') {
+            const elements = document.querySelectorAll('.FormInput-Input')
+
+            elements[0].value = this.props.item.title
+            elements[1].value = this.props.item.contents.toString()
+            elements[2].value = this.props.item.releaseDate.split('T')[0]
+            elements[3].value = this.props.item.image
+            elements[4].checked = this.props.item.special
+        }
+    }
     render() {
         return(
             <form className="PostForm">
