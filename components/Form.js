@@ -5,13 +5,7 @@ class PostForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            form: {
-                title: '',
-                contents: [],
-                image: '',
-                releaseDate: '',
-                special: false
-            }
+            form: {}
         }
 
         this.sendForm = this.sendForm.bind(this)
@@ -19,16 +13,29 @@ class PostForm extends React.Component {
     sendForm(ev) {
         ev.preventDefault()
 
-        fetch('https://owcrud-api.now.sh/api/posts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(this.state.form)
-        })
-            .catch(err => console.log(err))
-            .then(res => res.json())
-            .then(thing => console.log(thing))
+        if(this.props.type == 'update') {
+            fetch('https://owcrud-api.now.sh/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.state.form)
+            })
+                .catch(err => console.error(err))
+                .then(res => res.json())
+                .then(item => this.props.updateItem(item))
+        } else {
+            fetch('https://owcrud-api.now.sh/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.state.form)
+            })
+                .catch(err => console.log(err))
+                .then(res => res.json())
+                .then(thing => console.log(thing))
+        }
     }
     componentDidMount() {
         if(this.props.type == 'update') {
@@ -39,6 +46,8 @@ class PostForm extends React.Component {
             elements[2].value = this.props.item.releaseDate.split('T')[0]
             elements[3].value = this.props.item.image
             elements[4].checked = this.props.item.special
+
+            this.setState({ form: { ...this.state.form, _id: this.props.item._id } })
         }
     }
     render() {

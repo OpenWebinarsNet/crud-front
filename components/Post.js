@@ -13,9 +13,14 @@ class Post extends React.Component {
         }
 
         this.toggleUpdate = this.toggleUpdate.bind(this)
+        this.updateItem = this.updateItem.bind(this)
     }
     toggleUpdate() {
         this.setState({ showUpdate: !this.state.showUpdate })
+    }
+    updateItem(item) {
+        this.setState({ item })
+        this.toggleUpdate()
     }
     componentDidMount() {
         fetch(`https://owcrud-api.now.sh/api/posts/${this.props.id}`)
@@ -27,7 +32,11 @@ class Post extends React.Component {
         if(this.state.item._id) {
 
             let showForm = (this.state.showUpdate) ? (<div className="Update-Form">
-                                                        <Form type="update" item={this.state.item} />
+                                                        <Form
+                                                            type="update"
+                                                            item={this.state.item}
+                                                            updateItem={this.updateItem}
+                                                        />
                                                     </div>) : null
 
             return(
