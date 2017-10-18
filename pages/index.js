@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { HashRouter, Route, history } from 'react-router-dom'
 
 import Posts from '../components/Posts'
+import Post from '../components/Post'
 
 function FirstPage() {
     return(
@@ -13,7 +14,8 @@ function FirstPage() {
             </Head>
             <HashRouter history={history}>
                 <div id="Routes">
-                    <Route path='/' component={Posts}/>
+                    <Route path='/' component={Posts} exact/>
+                    <Route path='/:id' component={Post} />
                 </div>
             </HashRouter>
         </div>
