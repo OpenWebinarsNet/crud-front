@@ -8,13 +8,14 @@
     "type": "git"
   },
   "scripts": {
-    "start": "next start",
-    "dev": "next dev",
+    "start": "NODE_ENV=production node server.js",
+    "dev": "node server.js",
     "build": "next build"
   },
   "author": "Miguh Ruiz <m@miguhruiz.xyz> (https://miguhruiz.xyz/)",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.16.2",
     "moment": "^2.19.1",
     "next": "^4.1.0",
     "react": "^16.0.0",

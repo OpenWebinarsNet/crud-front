@@ -17,6 +17,11 @@ body {
     padding: 30px;
 }
 
+.Content-Item {
+    font-weight: 900;
+    text-align: center;
+}
+
 .Header-Mini {
     color: #f33784;
     font-size: 1.75em;
@@ -31,6 +36,37 @@ body {
     font-weight: 900;
     margin: 7px 0 0 0;
     text-align: center;
+}
+
+.Item {
+    margin: 2em;
+}
+
+.Item-Categories p {
+    text-align: center;
+}
+
+.Item-Line {
+    display: flex;
+    flex-direction: row;
+}
+
+.Item-Photo {
+    display: flex;
+    justify-content: center;
+    margin: 0 1em;
+}
+
+.Item-Photo img {
+    border-radius: 10px;
+    height: 300px;
+    max-width: 100%;
+}
+
+.Post-Icon {
+    color: #ff5252;
+    font-size: 25px !important;
+    padding: .9em 0 0 1em;
 }
 
 .Posts {
