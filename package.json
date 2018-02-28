@@ -19,6 +19,9 @@
     "moment": "^2.19.1",
     "next": "^4.1.0",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "redux": "^3.7.2",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0"
   }
 }
