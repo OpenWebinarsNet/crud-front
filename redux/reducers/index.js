@@ -1,6 +1,7 @@
 import { GET_POSTS, GET_POSTS_SUCCESS, GET_POSTS_FAILURE,
         GET_POST, GET_POST_SUCCESS, GET_POST_FAILURE,
         SAVE_POST, SAVE_POST_SUCCESS, SAVE_POST_FAILURE,
+        UPDATE_POST, UPDATE_POST_SUCCESS, UPDATE_POST_FAILURE,
         DELETE_POST, DELETE_POST_SUCCESS, DELETE_POST_FAILURE } from '../actions'
 
 const INITIAL_STATE = {
@@ -34,6 +35,13 @@ export default function Reducer(state=INITIAL_STATE, action)
         case SAVE_POST_FAILURE:
             error = action.payload.error || { message: action.payload.message }
             return {...state, posts: {...state.posts, error }}
+        case UPDATE_POST:
+            return {...state, currentPost: { data: [], error: null, loading: true }}
+        case UPDATE_POST_SUCCESS:
+            return {...state, currentPost: { data: action.payload, error: null, loading: false }}
+        case UPDATE_POST_FAILURE:
+            error = action.payload.error || { message: action.payload.message }
+            return {...state, currentPost: { data: [], error, loading: false }}
         case DELETE_POST:
             return {...state, posts: {...state.posts, loading: true}}
         case DELETE_POST_SUCCESS:

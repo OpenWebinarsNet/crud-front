@@ -10,6 +10,10 @@ export const SAVE_POST = 'SAVE_POST'
 export const SAVE_POST_SUCCESS = 'SAVE_POST_SUCCESS'
 export const SAVE_POST_FAILURE = 'SAVE_POST_FAILURE'
 
+export const UPDATE_POST = 'SAVE_POST'
+export const UPDATE_POST_SUCCESS = 'SAVE_POST_SUCCESS'
+export const UPDATE_POST_FAILURE = 'SAVE_POST_FAILURE'
+
 export const DELETE_POST = 'DELETE_POST'
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS'
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE'
@@ -125,6 +129,38 @@ export function savePostFailure(error)
 {
     return {
         type: SAVE_POST_FAILURE,
+        payload: error
+    }
+}
+
+export function updatePost(body)
+{
+    return (dispatch, getState) => {
+        fetch('https://owcrud-api.now.sh/api/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        .catch(err => savePostFailure(err))
+        .then(res => res.json())
+        .then(post => savePostSuccess(post))
+    }
+}
+
+export function updatePostSuccess(post)
+{
+    return {
+        type: UPDATE_POST_SUCCESS,
+        payload: post
+    }
+}
+
+export function updatePostFailure(error)
+{
+    return {
+        type: UPDATE_POST_FAILURE,
         payload: error
     }
 }
