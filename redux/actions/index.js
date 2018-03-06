@@ -14,7 +14,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS'
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE'
 
-function getPosts()
+export function getPosts()
 {
     return (dispatch, getState) => {
         fetch('https://owcrud-api.now.sh/api/posts')
@@ -24,7 +24,7 @@ function getPosts()
     }
 }
 
-function getPostsSuccess(posts)
+export function getPostsSuccess(posts)
 {
     return {
         type: GET_POSTS_SUCCESS,
@@ -32,7 +32,7 @@ function getPostsSuccess(posts)
     }
 }
 
-function getPostsFailure(error)
+export function getPostsFailure(error)
 {
     return {
         type: GET_POSTS_FAILURE,
@@ -40,7 +40,7 @@ function getPostsFailure(error)
     }
 }
 
-function getPost(id)
+export function getPost(id)
 {
     return (dispatch, getState) => {
         fetch(`https://owcrud-api.now.sh/api/posts/${id}`)
@@ -50,7 +50,7 @@ function getPost(id)
     }
 }
 
-function getPostSuccess(post)
+export function getPostSuccess(post)
 {
     return {
         type: GET_POST_SUCCESS,
@@ -58,7 +58,7 @@ function getPostSuccess(post)
     }
 }
 
-function getPostFailure(error)
+export function getPostFailure(error)
 {
     return {
         type: GET_POST_FAILURE,
@@ -66,7 +66,7 @@ function getPostFailure(error)
     }
 }
 
-function deletePost(id, i)
+export function deletePost(id, i)
 {
     return (dispatch, getState) => {
         fetch(`https://owcrud-api.now.sh/api/posts/${id}`, {
@@ -78,7 +78,7 @@ function deletePost(id, i)
     }
 }
 
-function deletePostSuccess(id, i, post)
+export function deletePostSuccess(id, i, post)
 {
     return {
         type: DELETE_POST_SUCCESS,
@@ -89,7 +89,7 @@ function deletePostSuccess(id, i, post)
     }
 }
 
-function deletePostFailure(error)
+export function deletePostFailure(error)
 {
     return {
         type: DELETE_POST_FAILURE,
@@ -97,7 +97,7 @@ function deletePostFailure(error)
     }
 }
 
-function savePost(body)
+export function savePost(body)
 {
     return (dispatch, getState) => {
         fetch('https://owcrud-api.now.sh/api/posts', {
@@ -113,7 +113,7 @@ function savePost(body)
     }
 }
 
-function savePostSuccess(post)
+export function savePostSuccess(post)
 {
     return {
         type: SAVE_POST_SUCCESS,
@@ -121,7 +121,7 @@ function savePostSuccess(post)
     }
 }
 
-function savePostFailure(error)
+export function savePostFailure(error)
 {
     return {
         type: SAVE_POST_FAILURE,
