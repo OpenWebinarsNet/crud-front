@@ -4,7 +4,7 @@ import { GET_POSTS, GET_POSTS_SUCCESS, GET_POSTS_FAILURE,
         UPDATE_POST, UPDATE_POST_SUCCESS, UPDATE_POST_FAILURE,
         DELETE_POST, DELETE_POST_SUCCESS, DELETE_POST_FAILURE } from '../actions'
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
     posts: { data: [], error: null, loading: true },
     currentPost: { data: [], error: null, loading: true }
 }
@@ -15,9 +15,9 @@ export default function Reducer(state=INITIAL_STATE, action)
     switch (action.type) {
         case GET_POSTS:
             return {...state, posts: { data: [], error: null, loading: true }}
-        case GET_POST_SUCCESS:
+        case GET_POSTS_SUCCESS:
             return {...state, posts: { data: action.payload, error: null, loading: false }}
-        case GET_POST_FAILURE:
+        case GET_POSTS_FAILURE:
             error = action.payload.error || { message: action.payload.message }
             return {...state, posts: { data: [], error, loading: false }}
         case GET_POST:

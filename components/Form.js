@@ -1,5 +1,8 @@
 import React from 'react'
 import moment from 'moment'
+import { connect } from 'react-redux'
+
+import { savePost } from '../redux/actions/index'
 
 class PostForm extends React.Component {
     constructor(props) {
@@ -25,16 +28,7 @@ class PostForm extends React.Component {
                 .then(res => res.json())
                 .then(item => this.props.updateItem(item))
         } else {
-            fetch('https://owcrud-api.now.sh/api/posts', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(this.state.form)
-            })
-                .catch(err => console.log(err))
-                .then(res => res.json())
-                .then(thing => console.log(thing))
+            this.props.savePost(this.state.form)
         }
     }
     componentDidMount() {
@@ -105,4 +99,18 @@ class PostForm extends React.Component {
     }
 }
 
-export default PostForm
+const mapStateToProps = state => {
+    return {
+        posts: state.posts
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        savePost: (post) => {
+            dispatch(savePost(post))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm)

@@ -1,7 +1,9 @@
 import React from 'react'
 import Head from 'next/head'
+import withRedux from 'next-redux-wrapper'
 
 import Post from '../components/Post'
+import { configureStore } from '../store'
 
 class SinglePage extends React.Component {
     static async getInitialProps({ req }) {
@@ -20,4 +22,4 @@ class SinglePage extends React.Component {
     }
 }
 
-export default SinglePage
+export default withRedux(configureStore, null, null)(SinglePage)

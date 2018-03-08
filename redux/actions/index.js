@@ -22,9 +22,9 @@ export function getPosts()
 {
     return (dispatch, getState) => {
         fetch('https://owcrud-api.now.sh/api/posts')
-            .catch(err => getPostsFailure(err))
+            .catch(err => dispatch(getPostsFailure(err)))
             .then(res => res.json())
-            .then(posts => getPostsSuccess(posts))
+            .then(posts => dispatch(getPostsSuccess(posts)))
     }
 }
 
@@ -48,9 +48,9 @@ export function getPost(id)
 {
     return (dispatch, getState) => {
         fetch(`https://owcrud-api.now.sh/api/posts/${id}`)
-            .catch(err => getPostFailure(err))
+            .catch(err => dispatch(getPostFailure(err)))
             .then(res => res.json())
-            .then(post => getPostSuccess(post))
+            .then(post => dispatch(getPostSuccess(post)))
     }
 }
 
@@ -58,7 +58,7 @@ export function getPostSuccess(post)
 {
     return {
         type: GET_POST_SUCCESS,
-        payload: posts
+        payload: post
     }
 }
 
@@ -76,19 +76,17 @@ export function deletePost(id, i)
         fetch(`https://owcrud-api.now.sh/api/posts/${id}`, {
             method: 'DELETE'
         })
-            .catch(err => deletePostFailure(err))
-            .then(res => res.json())
-            .then(post => deletePostSuccess(id, i, post))
+            .catch(err => dispatch(deletePostFailure(err)))
+            .then(post => dispatch(deletePostSuccess(id, i)))
     }
 }
 
-export function deletePostSuccess(id, i, post)
+export function deletePostSuccess(id, i)
 {
     return {
         type: DELETE_POST_SUCCESS,
         payload: {
-            index: i,
-            post
+            index: i
         }
     }
 }
@@ -111,9 +109,9 @@ export function savePost(body)
             },
             body: JSON.stringify(body)
         })
-        .catch(err => savePostFailure(err))
+        .catch(err => dispatch(savePostFailure(err)))
         .then(res => res.json())
-        .then(post => savePostSuccess(post))
+        .then(post => dispatch(savePostSuccess(post)))
     }
 }
 
@@ -143,9 +141,9 @@ export function updatePost(body)
             },
             body: JSON.stringify(body)
         })
-        .catch(err => savePostFailure(err))
+        .catch(err => dispatch(savePostFailure(err)))
         .then(res => res.json())
-        .then(post => savePostSuccess(post))
+        .then(post => dispatch(savePostSuccess(post)))
     }
 }
 

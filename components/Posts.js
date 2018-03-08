@@ -1,48 +1,34 @@
 import React from 'react'
 import moment from 'moment'
+import { connect } from 'react-redux'
 
 import Header from './Header'
+import { getPosts, deletePost } from '../redux/actions/index'
 
 class Posts extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            posts: []
-        }
-
         this.deletePost = this.deletePost.bind(this)
-
     }
     deletePost(ev) {
         let el = ev.target
         let id = el.dataset.id
         let index = el.dataset.index
 
-        fetch(`https://owcrud-api.now.sh/api/posts/${id}`, {
-            method: 'DELETE'
-        })
-         .catch(err => console.error(err))
-         .then(() => {
-            let posts = this.state.posts
-            posts.splice(index, 1)
-            this.setState({ posts })
-         })
+         this.props.deletePost(id, index)
     }
-    componentDidMount() {
-        fetch('https://owcrud-api.now.sh/api/posts')
-            .catch(err => console.error(err))
-            .then(res => res.json())
-            .then(posts => this.setState({ posts }))
+    async componentDidMount() {
+        await this.props.getPosts()
     }
     render() {
-        if(this.state.posts.length > 0) {
+        if(!this.props.posts.loading) {
             return(
                 <div className="App">
                     <Header />
                     <div className="Posts">
                         {
-                            this.state.posts.reverse().map((post, index) => (
+                            this.props.posts.data.reverse().map((post, index) => (
                                 <div className="Posts-Item" key={index}>
                                     <div className="PhotoSegment">
                                         <img src={post.image} alt={post.title}/>
@@ -73,4 +59,21 @@ class Posts extends React.Component {
     }
 }
 
-export default Posts
+const mapStateToProps = state => {
+    return {
+        posts: state.posts
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getPosts: () => {
+            dispatch(getPosts())
+        },
+        deletePost: (id, index) => {
+            dispatch(deletePost(id, index))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts)

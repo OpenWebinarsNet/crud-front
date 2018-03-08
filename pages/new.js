@@ -1,7 +1,9 @@
 import React from 'react'
 import Head from 'next/head'
+import withRedux from 'next-redux-wrapper'
 
 import Form from '../components/Form'
+import { configureStore } from '../store'
 
 class AddPost extends React.Component {
     render() {
@@ -17,4 +19,4 @@ class AddPost extends React.Component {
     }
 }
 
-export default AddPost
+export default withRedux(configureStore, null, null)(AddPost)

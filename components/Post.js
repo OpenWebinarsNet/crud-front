@@ -1,8 +1,10 @@
 import React from 'react'
 import moment from 'moment'
+import { connect } from 'react-redux'
 
 import Header from './Header'
 import Form from './Form'
+import { getPost, updatePost } from '../redux/actions/index'
 
 class Post extends React.Component {
     constructor(props) {
@@ -19,22 +21,18 @@ class Post extends React.Component {
         this.setState({ showUpdate: !this.state.showUpdate })
     }
     updateItem(item) {
-        this.setState({ item })
+        this.props.updatePost(item)
         this.toggleUpdate()
     }
     componentDidMount() {
-        fetch(`https://owcrud-api.now.sh/api/posts/${this.props.id}`)
-            .catch(err => console.error(err))
-            .then(res => res.json())
-            .then(item => this.setState({ item }))
+        this.props.getPost(this.props.id)
     }
     render() {
-        if(this.state.item._id) {
-
+        if(!this.props.currentPost.loading) {
             let showForm = (this.state.showUpdate) ? (<div className="Update-Form">
                                                         <Form
                                                             type="update"
-                                                            item={this.state.item}
+                                                            item={this.props.currentPost.data}
                                                             updateItem={this.updateItem}
                                                         />
                                                     </div>) : null
@@ -47,26 +45,26 @@ class Post extends React.Component {
                         <div className="Item">
                             <div className="Item-Detail">
                                 <div className="Item-Line">
-                                    <h1 className="Post-Title">{this.state.item.title}</h1>
+                                    <h1 className="Post-Title">{this.props.currentPost.data.title}</h1>
                                     <span
                                         className="Post-Icon fa fa-pencil"
                                         onClick={this.toggleUpdate}
-                                        data-id={this.state.item._id}
+                                        data-id={this.props.currentPost.data._id}
                                     />
                                 </div>
-                                <h3 className="Post-Date">{moment(this.state.item.releaseDate).fromNow()}</h3>
+                                <h3 className="Post-Date">{moment(this.props.currentPost.data.releaseDate).fromNow()}</h3>
                             </div>
                             <div className="Item-Categories">
                                 <p>En este curso aprenderás:
                                 {
-                                    this.state.item.contents.map(content => (
+                                    this.props.currentPost.data.contents.map(content => (
                                         <p className="Content-Item">{content}</p>
                                     )) 
                                 }
                                 </p>
                             </div>
                             <div className="Item-Photo">
-                                <img src={this.state.item.image} alt={this.state.item.title}/>
+                                <img src={this.props.currentPost.data.image} alt={this.props.currentPost.data.title}/>
                             </div>
                         </div>
                     </div>
@@ -78,4 +76,21 @@ class Post extends React.Component {
     }
 }
 
-export default Post
+const mapStateToProps = state => {
+    return {
+        currentPost: state.currentPost
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getPost: (id) => {
+            dispatch(getPost(id))
+        },
+        updatePost: (post) => {
+            dispatch(updatePost(post))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post)

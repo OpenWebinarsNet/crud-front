@@ -1,7 +1,9 @@
 import React from 'react'
 import Head from 'next/head'
+import withRedux from 'next-redux-wrapper'
 
 import Posts from '../components/Posts'
+import { configureStore } from '../store'
 
 function FirstPage() {
     return(
@@ -15,4 +17,4 @@ function FirstPage() {
     )
 }
 
-export default FirstPage
+export default withRedux(configureStore, null, null)(FirstPage)
